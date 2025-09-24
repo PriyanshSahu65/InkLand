@@ -22,5 +22,12 @@ private:
     Vector2 velocity;
     float speed;
 
+    //jump
+    bool isJumping;
+    float jumpVelocity;
+    float gravity;
+    float verticalVelocity;
+    bool onGround;
+
     std::string name;
 };
