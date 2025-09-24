@@ -16,7 +16,7 @@ Eera::Eera() {
     };
 
     velocity = { 0.0f, 0.0f };
-    speed = 220.0f;
+    speed = 250.0f;
 
     isJumping = false;
     jumpVelocity = -400.0f;
