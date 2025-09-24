@@ -5,9 +5,6 @@ enum GameState { MENU, PLAY };
 GameState currentState = MENU;
 
 bool paused = false;
-int selectedPauseOption = 0;
-const char* pauseItems[] = { "Exit" };
-const int pauseCount = 1;
 
 int selectedOption = 0;
 const char* menuItems[] = { "New Game", "Continue", "Exit" };
@@ -18,17 +15,19 @@ int main() {
     const int screenHeight = 720;
     InitWindow(screenWidth, screenHeight, "InkLand");
     SetTargetFPS(60);
+    Color canvas = { 191, 192, 187, 255 };
 
     Eera eera;
 
     while (!WindowShouldClose()) {
         float delta = GetFrameTime();
 
-        // Toggle pause with ESC
+        // TAB toggles pause
         if (currentState == PLAY && IsKeyPressed(KEY_TAB)) {
             paused = !paused;
         }
 
+        // Menu logic
         if (currentState == MENU) {
             if (IsKeyPressed(KEY_DOWN)) selectedOption = (selectedOption + 1) % menuCount;
             if (IsKeyPressed(KEY_UP))   selectedOption = (selectedOption - 1 + menuCount) % menuCount;
@@ -39,18 +38,20 @@ int main() {
                 if (selectedOption == 2) break;
             }
         }
+        // Game logic
         else if (currentState == PLAY && !paused) {
             eera.update(delta);
         }
+        // Pause logic
         else if (currentState == PLAY && paused) {
             if (IsKeyPressed(KEY_ENTER)) {
-                if (selectedPauseOption == 0) break; 
+                break;
             }
         }
 
         // Draw
         BeginDrawing();
-        ClearBackground(RAYWHITE);
+        ClearBackground(canvas);
 
         if (currentState == MENU) {
             ClearBackground(BLACK);
@@ -68,9 +69,17 @@ int main() {
 
             if (paused) {
                 DrawRectangle(0, 0, screenWidth, screenHeight, Fade(BLACK, 0.6f));
-                DrawText("Paused", 560, 240, 40, WHITE);
-                DrawText("Exit", 580, 300, 30, LIGHTGRAY);
+
+                DrawText("Paused", 560, 200, 40, WHITE);
+
+                DrawText("Press Enter to Exit", 500, 260, 20, LIGHTGRAY);
+
+                DrawText("Controls", 560, 320, 20, GRAY);
+                DrawText("< / >   Move", 540, 350, 18, LIGHTGRAY);
+                DrawText("S        Jump", 540, 375, 18, LIGHTGRAY);
+                DrawText("Tab      Pause", 540, 400, 18, LIGHTGRAY);
             }
+
         }
 
         EndDrawing();

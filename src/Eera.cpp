@@ -16,13 +16,17 @@ Eera::Eera() {
     };
 
     velocity = { 0.0f, 0.0f };
-    speed = 200.0f;
+    speed = 220.0f;
 
     isJumping = false;
     jumpVelocity = -400.0f;
-    gravity = 900.0f;
-    verticalVelocity = 0.0f;
+    gravity = 1200.0f;
+    verticalVelocity = 0.5f;
     onGround = true;
+
+    maxJumpTime = 0.25f;
+    jumpTime = 0.0f;
+    jumpHeld = false;
 
     name = "Eera";
 }
@@ -46,28 +50,45 @@ void Eera::update(float deltaTime) {
     if (IsKeyDown(KEY_RIGHT)) velocity.x = speed;
 
     // Jump initiation
-    if (onGround && IsKeyPressed(KEY_SPACE)) {
+    if (onGround && IsKeyPressed(KEY_S)) {
         verticalVelocity = jumpVelocity;
         isJumping = true;
         onGround = false;
+        jumpHeld = true;
+        jumpTime = 0.0f;
 
-        // Directional boost
         if (IsKeyDown(KEY_LEFT))  velocity.x = -speed * 0.6f;
         if (IsKeyDown(KEY_RIGHT)) velocity.x = speed * 0.6f;
     }
 
-    // Apply gravity
+    // Jump hold logic
+    if (isJumping && jumpHeld && IsKeyDown(KEY_S)) {
+        jumpTime += deltaTime;
+        if (jumpTime < maxJumpTime) {
+            verticalVelocity = jumpVelocity;
+        }
+        else {
+            jumpHeld = false;
+        }
+    }
+
+    // Early release
+    if (isJumping && IsKeyReleased(KEY_S)) {
+        jumpHeld = false;
+    }
+
+    // Gravity
     if (!onGround) {
         verticalVelocity += gravity * deltaTime;
         position.y += verticalVelocity * deltaTime;
 
-        // Ground collision
         float groundY = GetScreenHeight() - frameRec.height;
         if (position.y >= groundY) {
             position.y = groundY;
             verticalVelocity = 0.0f;
             isJumping = false;
             onGround = true;
+            jumpHeld = false;
         }
     }
 
