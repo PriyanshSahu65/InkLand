@@ -65,7 +65,9 @@ int main() {
         }
         else if (currentState == PLAY) {
             eera.draw();
-            DrawText("HUn? where the map at? ...", 280, 280, 20, DARKGRAY);
+            DrawText("<- ->   Move", 20, 20, 20, BLACK);
+            DrawText("S        Jump", 20, 45, 20, BLACK);
+            DrawText("Tab      Pause", 20, 70, 20, BLACK);
 
             if (paused) {
                 DrawRectangle(0, 0, screenWidth, screenHeight, Fade(BLACK, 0.6f));
@@ -73,11 +75,6 @@ int main() {
                 DrawText("Paused", 560, 200, 40, WHITE);
 
                 DrawText("Press Enter to Exit", 500, 260, 20, LIGHTGRAY);
-
-                DrawText("Controls", 560, 320, 20, GRAY);
-                DrawText("< / >   Move", 540, 350, 18, LIGHTGRAY);
-                DrawText("S        Jump", 540, 375, 18, LIGHTGRAY);
-                DrawText("Tab      Pause", 540, 400, 18, LIGHTGRAY);
             }
 
         }
