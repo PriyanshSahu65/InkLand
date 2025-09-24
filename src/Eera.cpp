@@ -2,10 +2,13 @@
 #include <raymath.h>
 
 Eera::Eera() {
-    texture = LoadTexture("assets/idle.png");
+    textureIdle = LoadTexture("assets/idle.png");
+    textureRight = LoadTexture("assets/right_move.png");
+    textureLeft = LoadTexture("assets/left_move.png");
+
     frameCount = 4;
-    int frameWidth = texture.width / frameCount;
-    frameRec = { 0, 0, static_cast<float>(frameWidth), static_cast<float>(texture.height) };
+    int frameWidth = textureIdle.width / frameCount;
+    frameRec = { 0, 0, static_cast<float>(frameWidth), static_cast<float>(textureIdle.height) };
     frameTime = 0.3f;
     timer = 0.0f;
     currentFrame = 0;
@@ -32,7 +35,9 @@ Eera::Eera() {
 }
 
 Eera::~Eera() {
-    UnloadTexture(texture);
+    UnloadTexture(textureIdle);
+    UnloadTexture(textureRight);
+    UnloadTexture(textureLeft);
 }
 
 void Eera::update(float deltaTime) {
@@ -40,7 +45,6 @@ void Eera::update(float deltaTime) {
     timer += deltaTime;
     if (timer >= frameTime) {
         currentFrame = (currentFrame + 1) % frameCount;
-        frameRec.x = currentFrame * frameRec.width;
         timer = 0.0f;
     }
 
@@ -97,8 +101,15 @@ void Eera::update(float deltaTime) {
 
     // Clamp to screen
     position.x = Clamp(position.x, 0.0f, GetScreenWidth() - frameRec.width);
+
+    // Update frameRec.x based on current frame
+    frameRec.x = currentFrame * frameRec.width;
 }
 
 void Eera::draw() const {
-    DrawTextureRec(texture, frameRec, position, WHITE);
+    Texture2D currentTexture = textureIdle;
+    if (velocity.x > 0) currentTexture = textureRight;
+    else if (velocity.x < 0) currentTexture = textureLeft;
+
+    DrawTextureRec(currentTexture, frameRec, position, WHITE);
 }

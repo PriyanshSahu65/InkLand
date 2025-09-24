@@ -11,7 +11,9 @@ public:
     void draw() const;
 
 private:
-    Texture2D texture;
+    Texture2D textureIdle;
+    Texture2D textureRight;
+    Texture2D textureLeft;
     Rectangle frameRec;
     int frameCount;
     int currentFrame;
