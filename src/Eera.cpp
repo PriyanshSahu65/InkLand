@@ -19,7 +19,7 @@ Eera::Eera() {
     };
 
     velocity = { 0.0f, 0.0f };
-    speed = 400.0f;             // Faster walk speed
+    speed = 400.0f;            // walk speed
 
     isJumping = false;
     jumpVelocity = -800.0f;     // Snappy launch
@@ -27,7 +27,7 @@ Eera::Eera() {
     verticalVelocity = 0.5f;
     onGround = true;
 
-    maxJumpTime = 0.18f;        // Tight hold window
+    maxJumpTime = 0.18f;        // jump hold window
     jumpTime = 0.0f;
     jumpHeld = false;
 
