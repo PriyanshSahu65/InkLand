@@ -19,15 +19,15 @@ Eera::Eera() {
     };
 
     velocity = { 0.0f, 0.0f };
-    speed = 250.0f;
+    speed = 400.0f;             // Faster walk speed
 
     isJumping = false;
-    jumpVelocity = -400.0f;
-    gravity = 1200.0f;
+    jumpVelocity = -800.0f;     // Snappy launch
+    gravity = 2200.0f;          // Quick fall
     verticalVelocity = 0.5f;
     onGround = true;
 
-    maxJumpTime = 0.25f;
+    maxJumpTime = 0.18f;        // Tight hold window
     jumpTime = 0.0f;
     jumpHeld = false;
 
@@ -112,4 +112,8 @@ void Eera::draw() const {
     else if (velocity.x < 0) currentTexture = textureLeft;
 
     DrawTextureRec(currentTexture, frameRec, position, WHITE);
+}
+
+Vector2 Eera::getPosition() const {
+    return position;
 }

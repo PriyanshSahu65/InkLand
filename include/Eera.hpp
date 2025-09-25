@@ -9,6 +9,7 @@ public:
 
     void update(float deltaTime);
     void draw() const;
+    Vector2 getPosition() const;
 
 private:
     Texture2D textureIdle;
@@ -20,7 +21,6 @@ private:
     float frameTime;
     float timer;
 
-    // Walking 
     Vector2 position;
     Vector2 velocity;
     float speed;
