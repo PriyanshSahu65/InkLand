@@ -54,7 +54,7 @@ void Eera::update(float deltaTime) {
     if (IsKeyDown(KEY_RIGHT)) velocity.x = speed;
 
     // Jump initiation
-    if (onGround && IsKeyPressed(KEY_S)) {
+    if (onGround && IsKeyPressed(KEY_UP)) {
         verticalVelocity = jumpVelocity;
         isJumping = true;
         onGround = false;
@@ -66,7 +66,7 @@ void Eera::update(float deltaTime) {
     }
 
     // Jump hold logic
-    if (isJumping && jumpHeld && IsKeyDown(KEY_S)) {
+    if (isJumping && jumpHeld && IsKeyDown(KEY_UP)) {
         jumpTime += deltaTime;
         if (jumpTime < maxJumpTime) {
             verticalVelocity = jumpVelocity;
@@ -77,7 +77,7 @@ void Eera::update(float deltaTime) {
     }
 
     // Early release
-    if (isJumping && IsKeyReleased(KEY_S)) {
+    if (isJumping && IsKeyReleased(KEY_UP)) {
         jumpHeld = false;
     }
 

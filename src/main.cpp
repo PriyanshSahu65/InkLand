@@ -14,7 +14,7 @@ int main() {
     const int screenWidth = 1280;
     const int screenHeight = 720;
     InitWindow(screenWidth, screenHeight, "InkLand");
-    SetTargetFPS(60);
+    SetTargetFPS(120);
     Color canvas = { 191, 192, 187, 255 };
 
     Eera eera;
@@ -23,7 +23,7 @@ int main() {
         float delta = GetFrameTime();
 
         // TAB toggles pause
-        if (currentState == PLAY && IsKeyPressed(KEY_TAB)) {
+        if (currentState == PLAY && IsKeyPressed(KEY_TAB)){
             paused = !paused;
         }
 
@@ -66,7 +66,7 @@ int main() {
         else if (currentState == PLAY) {
             eera.draw();
             DrawText("<- ->   Move", 20, 20, 20, BLACK);
-            DrawText("S        Jump", 20, 45, 20, BLACK);
+            DrawText("^        Jump", 20, 45, 20, BLACK);
             DrawText("Tab      Pause", 20, 70, 20, BLACK);
 
             if (paused) {

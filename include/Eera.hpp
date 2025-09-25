@@ -20,6 +20,7 @@ private:
     float frameTime;
     float timer;
 
+    // Walking 
     Vector2 position;
     Vector2 velocity;
     float speed;
