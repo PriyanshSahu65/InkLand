@@ -2,7 +2,7 @@ A simple Cpp project,
 Used:
 Raylib
 
-work till nw: /n
- Simple sprite for walking /n
- added idle animation /n
- basic motion and jump logic 
+work till nw: <br/>
+ Simple sprite for walking <br/>
+ added idle animation <br/>
+ basic motion and jump logic <br/>
